@@ -1,0 +1,25 @@
+@model Transaction
+<h1>Welcome, @Context.Session.GetString("Name")</h1>
+<h4 class="align">Current balance: <span class="border border-dark p-2">$@ViewBag.Balance.ToString("0.00")</span></h4>
+<form asp-action="Transaction" asp-controller="Home" method="POST">
+<div class="form-group">
+    <label asp-for="Amount"></label>
+    <span asp-validation-for="Amount" class="text-danger"></span>
+    <input asp-for="Amount">
+</div>
+    <button class="btn btn-primary">Submit</button>
+</form>
+
+<table class="table table-dark table-striped mt-4">
+    <tr>
+        <th>Amount</th>
+        <th>Date</th>
+    </tr>
+    @foreach (var trans in ViewBag.allTrans)
+    {
+    <tr>
+        <td>@trans.Amount.ToString("0.00")</td>
+        <td>@trans.CreatedAt.ToString("MMM d, yyyy")</td>
+    </tr>
+    }
+</table>
